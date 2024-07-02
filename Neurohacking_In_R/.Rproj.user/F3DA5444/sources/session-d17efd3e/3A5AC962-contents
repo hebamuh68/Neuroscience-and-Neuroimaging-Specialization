@@ -1,0 +1,25 @@
+# Load the oro.nifti package
+library(oro.nifti)
+
+#======================================================
+# Write a NIfTI file
+fname = "Output_3D_File"
+writeNIfTI(nim = nii_T1, filename = fname)
+
+#======================================================
+# Read a NIfTI file
+file_path = "../../neurohacking_data/NIfTI/T2.nii.gz"
+nii_T2 = readNIfTI(file_path, reorient = FALSE)
+
+
+nii_T2@dim       # Dimensions
+nii_T2@pixdim    # Pixel dimensions
+nii_T2@datatype  # Data type
+nii_T2@cal_max   # Maximum calibrated value
+
+#======================================================
+# Visualizing Slices
+image(nii_T2, z = 1, plot.type = "single")
+
+# Histogram of Intensity Values
+hist(nii_T2@.Data, main = "Histogram of Intensity Values")

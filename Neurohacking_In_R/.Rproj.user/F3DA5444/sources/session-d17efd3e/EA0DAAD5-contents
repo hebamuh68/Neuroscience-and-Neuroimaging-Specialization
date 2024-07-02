@@ -1,0 +1,33 @@
+---
+title: "Visualizing an Image from DICOM file"
+output: html_document
+---
+
+library(oro.dicom)
+
+url <- "https://raw.githubusercontent.com/muschellij2/Neurohacking_data/master/BRAINIX/DICOM/T1/IM-0001-0001.dcm"
+destfile <- "IM-0001-0001.dcm"
+name <- file.path(getwd(), destfile)
+download.file(url, destfile,mode="wb") # DICOM is binaryfile format
+dcm <- readDICOMFile(destfile)
+
+
+```
+
+#### Show Manufacturer from file header by call extractHeader
+
+```{r}
+extractHeader(dcm$hdr, "Manufacturer", numeric=FALSE)
+
+```
+
+
+#### Read an DICOM file
+
+```{r}
+image(t(dcm$img), col=grey(0:64/64), axes=FALSE, xlab="", ylab="",
+                main="Example image from DICOM file")
+
+```
+
+
